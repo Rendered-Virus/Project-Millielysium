@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 using Sirenix.OdinInspector;
@@ -14,11 +15,15 @@ public class PlayerMovement : MonoBehaviour
    [SerializeField] private float _midAirSpeedMultiplier;
    [TabGroup("Stats")]
    [SerializeField] private float _jumpForce;
+   [TabGroup("Stats")]
+   [SerializeField] private float _jumpDurationMin, _jumpDurationMax;
 
    [TabGroup("Camera")]
    [SerializeField] private CinemachineCamera _camera;
    [TabGroup("Camera")]
    [SerializeField] private Vector2 _aimSensitivity;
+   [TabGroup("Camera")]
+   [SerializeField] private float _aimSpeed;
 
    [TabGroup("Stats")]
    [SerializeField] private LayerMask _groundLayer;
@@ -37,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
    private bool _grounded;
    private int _remainingJumps;
    private float _timeToJump;
+
+   private float _timeSinceJump;
 
    private void Start()
    {
@@ -61,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
       
       if (Input.GetKeyDown(KeyCode.Space) && _remainingJumps > 0)
       {
-         Jump();
+         StartCoroutine(Jump());
          _timeToJump = _jumpCooldown;
          _remainingJumps--;
       }
@@ -74,14 +81,15 @@ public class PlayerMovement : MonoBehaviour
    }
    private void Rotation(Vector3 forward)
    {
-      transform.rotation = Quaternion.LookRotation(forward);
+      var rot = Quaternion.LookRotation(forward);
+      transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * _aimSpeed);
    }
 
    private void Move()
    {
       var moveDir = _camera.transform.forward;
       moveDir.y = 0;
-      moveDir *= Input.GetAxisRaw("Vertical") * _walkSpeed * Time.fixedDeltaTime;
+      moveDir *= Input.GetAxisRaw("Vertical") * _walkSpeed * Time.deltaTime;
       moveDir *= _grounded ? 1 : _midAirSpeedMultiplier;
       
       _rigidbody.AddForce(moveDir,ForceMode.VelocityChange);
@@ -90,9 +98,21 @@ public class PlayerMovement : MonoBehaviour
          Rotation(moveDir);
    }
 
-   private void Jump()
+   private IEnumerator Jump()
    {
-      _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+      _timeSinceJump = 0;
+      var duration = _jumpDurationMin;
+      
+      while (_timeSinceJump < duration && duration < _jumpDurationMax)
+      {
+         _rigidbody.AddForce(Vector3.up * _jumpForce * Time.deltaTime, ForceMode.Impulse);
+         _timeSinceJump += Time.deltaTime;
+         
+         if(Input.GetKey(KeyCode.Space))
+            duration+= Time.deltaTime;
+         
+         yield return null;
+      }
    }
 
    private void OnValidate()
