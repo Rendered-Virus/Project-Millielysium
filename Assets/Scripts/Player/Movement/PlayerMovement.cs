@@ -38,12 +38,32 @@ public class PlayerMovement : MonoBehaviour
    [TabGroup("Stats")]
    [SerializeField] private float _jumpCooldown;
    
+   [TabGroup("Animation")]
+   [SerializeField] private Animator _animator;
+   [TabGroup("Animation")]
+   [SerializeField] private float _animationTransitionDuration;
+   [TabGroup("Animation")]
+   [SerializeField] private float _fallingTransitionDuration;
+   [TabGroup("Animation")]
+   [SerializeField] private float _fallingAnimationThreshold;
+   [TabGroup("Animation")]
+   [SerializeField] private string _runClip;
+   [TabGroup("Animation")]
+   [SerializeField] private string _idleClip;
+   [TabGroup("Animation")]
+   [SerializeField] private string _jumpClip;
+   [TabGroup("Animation")]
+   [SerializeField] private string _fallClip;
+   
    private Rigidbody _rigidbody;
-   private bool _grounded;
+   private bool _grounded, _wasGrounded;
    private int _remainingJumps;
    private float _timeToJump;
 
    private float _timeSinceJump;
+   private bool _isRunning, _wasRunning;
+   
+   private bool _isFalling,_wasFalling;
 
    private void Start()
    {
@@ -68,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
       
       if (Input.GetKeyDown(KeyCode.Space) && _remainingJumps > 0)
       {
-         StartCoroutine(Jump());
+         StartCoroutine(JumpCoroutine());
          _timeToJump = _jumpCooldown;
          _remainingJumps--;
       }
@@ -85,23 +105,39 @@ public class PlayerMovement : MonoBehaviour
       transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * _aimSpeed);
    }
 
-   private void Move()
+   private void LateUpdate()
    {
-      var moveDir = _camera.transform.forward;
-      moveDir.y = 0;
-      moveDir *= Input.GetAxisRaw("Vertical") * _walkSpeed * Time.deltaTime;
-      moveDir *= _grounded ? 1 : _midAirSpeedMultiplier;
-      
-      _rigidbody.AddForce(moveDir,ForceMode.VelocityChange);
-
-      if (moveDir.sqrMagnitude > 0.1f)
-         Rotation(moveDir);
+      _wasRunning = _isRunning;
+      _wasGrounded = _grounded;
+      _wasFalling = _isFalling;
    }
 
-   private IEnumerator Jump()
+   private void Move()
+   {
+      var forwardDir = _camera.transform.forward;
+      forwardDir.y = 0;
+      forwardDir *= Input.GetAxisRaw("Vertical") * _walkSpeed * Time.deltaTime;
+      forwardDir *= _grounded ? 1 : _midAirSpeedMultiplier;
+      
+      _rigidbody.AddForce(forwardDir,ForceMode.VelocityChange);
+      
+      _isRunning = forwardDir.sqrMagnitude > 0.1f;
+      
+      if (_isRunning && !_wasRunning)
+         _animator.CrossFade(_runClip,_animationTransitionDuration);
+      else if(!_isRunning && _wasRunning)
+         _animator.CrossFade(_idleClip,_animationTransitionDuration);
+      
+      if(_isRunning)
+         Rotation(forwardDir);
+   }
+
+   private IEnumerator JumpCoroutine()
    {
       _timeSinceJump = 0;
+      
       var duration = _jumpDurationMin;
+      _animator.CrossFade(_jumpClip, _animationTransitionDuration);
       
       while (_timeSinceJump < duration && duration < _jumpDurationMax)
       {
@@ -126,8 +162,18 @@ public class PlayerMovement : MonoBehaviour
       _camera.GetComponent<CinemachineInputAxisController>().Controllers[1].Input.Gain = _aimSensitivity.y;
    }
 
-   private void CheckIfGrounded() =>
+   private void CheckIfGrounded()
+   {
+      
       _grounded = Physics.CheckSphere(transform.position + transform.TransformVector(_feetPositionOffset), _feetRadius,_groundLayer);
+      if (_grounded && !_wasGrounded)
+      {
+         if (_isRunning)
+            _animator.CrossFade(_runClip,_animationTransitionDuration);
+         else
+            _animator.CrossFade(_idleClip,_animationTransitionDuration);
+      }
+   }
 
    private void OnDrawGizmosSelected()
    {
@@ -136,6 +182,11 @@ public class PlayerMovement : MonoBehaviour
 
    private void ExtraGravity()
    {
+      _isFalling = _rigidbody.linearVelocity.y < _fallingAnimationThreshold;
+      
+      if (_isFalling && !_wasFalling && !_grounded)
+         _animator.CrossFade(_fallClip,_fallingTransitionDuration);
+      
       if(_rigidbody.linearVelocity.y < 0)
          _rigidbody.AddForce(Vector3.down * _extraGravity, ForceMode.Force);
    }

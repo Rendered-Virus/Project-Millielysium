@@ -333,20 +333,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _walkSpeed: 250
   _midAirSpeedMultiplier: 0.4
-  _jumpForce: 100
+  _jumpForce: 150
   _jumpDurationMin: 0.1
-  _jumpDurationMax: 0.5
+  _jumpDurationMax: 0.4
   _camera: {fileID: 1079677079}
   _aimSensitivity: {x: 1.5, y: -1.5}
-  _aimSpeed: 30
+  _aimSpeed: 10
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
   _feetPositionOffset: {x: 0, y: 0, z: 0}
   _feetRadius: 0.1
   _numberOfJumps: 1
-  _extraGravity: 70
+  _extraGravity: 50
   _jumpCooldown: 0.2
+  _animator: {fileID: 606584558}
+  _animationTransitionDuration: 0.1
+  _fallingTransitionDuration: 0.75
+  _fallingAnimationThreshold: -20
+  _runClip: Run
+  _idleClip: Idle 1
+  _jumpClip: Jump
+  _fallClip: Fall
 --- !u!54 &385010383
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -473,6 +481,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4bb2715ed62fb1642a825f7d5371b478, type: 3}
       insertIndex: -1
       addedObject: {fileID: 606584557}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4bb2715ed62fb1642a825f7d5371b478, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 606584558}
   m_SourcePrefab: {fileID: 100100000, guid: 4bb2715ed62fb1642a825f7d5371b478, type: 3}
 --- !u!4 &606584555 stripped
 Transform:
@@ -505,6 +516,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.5, y: 1.1281197, z: 0.9}
   m_Center: {x: 0, y: 0.56145823, z: 0}
+--- !u!95 &606584558
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606584556}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c5dcfb84a44c80146a065f05565c5a7f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &684199938
 GameObject:
   m_ObjectHideFlags: 0
