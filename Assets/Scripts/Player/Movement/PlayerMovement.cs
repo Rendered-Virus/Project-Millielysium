@@ -55,6 +55,9 @@ public class PlayerMovement : MonoBehaviour
    [TabGroup("Animation")]
    [SerializeField] private string _fallClip;
    
+   [TabGroup("VFX")]
+   [SerializeField] private GameObject _jumpEffectPrefab;
+   
    private Rigidbody _rigidbody;
    private bool _grounded, _wasGrounded;
    private int _remainingJumps;
@@ -63,7 +66,8 @@ public class PlayerMovement : MonoBehaviour
    private float _timeSinceJump;
    private bool _isRunning, _wasRunning;
    
-   private bool _isFalling,_wasFalling;
+   public bool _isFalling {private set; get;}
+   private bool _wasFalling;
 
    private void Start()
    {
@@ -123,13 +127,16 @@ public class PlayerMovement : MonoBehaviour
       
       _isRunning = forwardDir.sqrMagnitude > 0.1f;
       
+      if(_isRunning)
+         Rotation(forwardDir);
+
+      if (!_grounded) return;
+      
       if (_isRunning && !_wasRunning)
          _animator.CrossFade(_runClip,_animationTransitionDuration);
       else if(!_isRunning && _wasRunning)
          _animator.CrossFade(_idleClip,_animationTransitionDuration);
       
-      if(_isRunning)
-         Rotation(forwardDir);
    }
 
    private IEnumerator JumpCoroutine()
@@ -138,6 +145,11 @@ public class PlayerMovement : MonoBehaviour
       
       var duration = _jumpDurationMin;
       _animator.CrossFade(_jumpClip, _animationTransitionDuration);
+
+      if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out RaycastHit hit, 10, _groundLayer))
+      {
+         Instantiate(_jumpEffectPrefab,hit.point, Quaternion.LookRotation(hit.normal));
+      }
       
       while (_timeSinceJump < duration && duration < _jumpDurationMax)
       {
@@ -190,4 +202,5 @@ public class PlayerMovement : MonoBehaviour
       if(_rigidbody.linearVelocity.y < 0)
          _rigidbody.AddForce(Vector3.down * _extraGravity, ForceMode.Force);
    }
+   
 }

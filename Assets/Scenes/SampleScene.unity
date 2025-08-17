@@ -183,7 +183,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1fe0926ee987a5c458c478637b7477b7, type: 2}
+  - {fileID: 2100000, guid: 8b3891e0d23a80e4283ba73a5a7755f2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -312,6 +312,7 @@ GameObject:
   - component: {fileID: 385010386}
   - component: {fileID: 385010383}
   - component: {fileID: 385010382}
+  - component: {fileID: 385010388}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -343,18 +344,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _feetPositionOffset: {x: 0, y: 0, z: 0}
-  _feetRadius: 0.1
+  _feetRadius: 0.2
   _numberOfJumps: 1
   _extraGravity: 50
-  _jumpCooldown: 0.2
+  _jumpCooldown: 0.25
   _animator: {fileID: 606584558}
-  _animationTransitionDuration: 0.1
-  _fallingTransitionDuration: 0.75
-  _fallingAnimationThreshold: -20
+  _animationTransitionDuration: 0
+  _fallingTransitionDuration: 0.6
+  _fallingAnimationThreshold: 12
   _runClip: Run
   _idleClip: Idle 1
   _jumpClip: Jump
   _fallClip: Fall
+  _jumpEffectPrefab: {fileID: 3432958286849152088, guid: 87ee7299dd44ed747af24dbb91bcd33b, type: 3}
 --- !u!54 &385010383
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -406,6 +408,27 @@ Transform:
   - {fileID: 606584555}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -79.16, z: 0}
+--- !u!114 &385010388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385010381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6f33cf8d63d54744af7cdf8ec983ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackRadius: 3
+  _maxHeightDifference: 0.5
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  _upForce: 100
+  _lungeDuration: 0.5
+  _attackDuration: 0.8
+  _cameraController: {fileID: 1079677075}
 --- !u!1001 &606584554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -469,13 +492,14 @@ PrefabInstance:
     - target: {fileID: -5112282355891083306, guid: 4bb2715ed62fb1642a825f7d5371b478, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: b0af8cafff5fad047a7916fdcd95cacc, type: 2}
+      objectReference: {fileID: 2100000, guid: af860aff0f9305b449a06304f209c7f7, type: 2}
     - target: {fileID: 919132149155446097, guid: 4bb2715ed62fb1642a825f7d5371b478, type: 3}
       propertyPath: m_Name
       value: Millie
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -8700617353114198275, guid: 4bb2715ed62fb1642a825f7d5371b478, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4bb2715ed62fb1642a825f7d5371b478, type: 3}
@@ -502,7 +526,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 606584556}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4ea289c0776a34340a8786e7e7a1268e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -550,7 +574,7 @@ GameObject:
   - component: {fileID: 684199942}
   - component: {fileID: 684199941}
   - component: {fileID: 684199940}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -618,7 +642,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 67fce95686893904ba47ef6bd810a65e, type: 2}
+  - {fileID: 2100000, guid: 4280d495e2871154fb9c8509db0a944c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1051,7 +1075,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: 0
+    Value: 60.1
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -1131,8 +1155,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079677074}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.097464874, y: 0.000000027246065, z: -0.0000000026682379, w: 0.99523896}
-  m_LocalPosition: {x: 0.16, y: 1.5185169, z: -2.5323553}
+  m_LocalRotation: {x: 0.084364526, y: 0.49837142, z: -0.04880609, w: 0.86146766}
+  m_LocalPosition: {x: -2.112973, y: 1.5185169, z: -1.2174077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1482,7 +1506,7 @@ GameObject:
   - component: {fileID: 1587645772}
   - component: {fileID: 1587645771}
   - component: {fileID: 1587645770}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1550,7 +1574,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 67fce95686893904ba47ef6bd810a65e, type: 2}
+  - {fileID: 2100000, guid: 4280d495e2871154fb9c8509db0a944c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1713,7 +1737,7 @@ GameObject:
   - component: {fileID: 1992503200}
   - component: {fileID: 1992503199}
   - component: {fileID: 1992503198}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1781,7 +1805,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 67fce95686893904ba47ef6bd810a65e, type: 2}
+  - {fileID: 2100000, guid: 4280d495e2871154fb9c8509db0a944c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1942,8 +1966,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010687843}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.097464874, y: 0.000000027246067, z: -0.000000002668238, w: 0.99523896}
-  m_LocalPosition: {x: 0.16, y: 1.5185169, z: -2.5323553}
+  m_LocalRotation: {x: 0.084364526, y: 0.49837142, z: -0.04880609, w: 0.86146766}
+  m_LocalPosition: {x: -2.112973, y: 1.5185169, z: -1.2174077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
