@@ -68,17 +68,22 @@ public class PlayerMovement : MonoBehaviour
    
    public bool _isFalling {private set; get;}
    private bool _wasFalling;
-
+   private bool _begun;
    private void Start()
    {
-      Cursor.lockState = CursorLockMode.Locked;
+  
       UpdateStats();
-      
       _rigidbody = GetComponent<Rigidbody>();
    }
 
+   public void Begin()
+   {
+      Cursor.lockState = CursorLockMode.Locked;
+   }
    private void Update()
    {
+      if (!_begun) return;
+      
       if (_timeToJump <= 0)
          JumpLoop();
       else
@@ -99,7 +104,8 @@ public class PlayerMovement : MonoBehaviour
    }
    private void FixedUpdate()
    {
-      Move();
+      if (!_begun) return;
+       Move();
       CheckIfGrounded();
       ExtraGravity();
    }

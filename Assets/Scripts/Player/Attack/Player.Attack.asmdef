@@ -1,0 +1,19 @@
+{
+    "name": "Player.Attack",
+    "rootNamespace": "",
+    "references": [
+        "GUID:cb98bfd81e1d15848bd109d7f324b01e",
+        "GUID:0af98cd187648614e8237b1914a18f67",
+        "GUID:411e28ff8835b774db57538069b9b8c2",
+        "GUID:4307f53044263cf4b835bd812fc161a4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

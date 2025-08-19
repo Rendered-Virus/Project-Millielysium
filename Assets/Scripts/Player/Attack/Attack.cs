@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using DG.Tweening.Core;
 using Unity.Cinemachine;
 
 public class PlayerAttack : MonoBehaviour
@@ -13,17 +14,28 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float _upForce;
     [SerializeField] private float _lungeDuration;
     [SerializeField] private float _attackDuration;
+    [SerializeField][Range(0f,1f)] private float _targetPositionInterpolant;
 
     [SerializeField] private CinemachineInputAxisController _cameraController;
+    [SerializeField] private CinemachineCamera _cinemachineCam;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private string _scratchClip;
+    [SerializeField] private string _jumpClip;
+
+    [SerializeField] private float _zoomInFov;
+    [SerializeField] private float _zoomOutDuration;
+    [SerializeField] private int _damage;
     
     private PlayerMovement _playerMovement;
     private bool _attacking;
     private Rigidbody _rigidbody;
+    private float _defaultFov;
 
     private void Start()
     {
         _playerMovement = GetComponent<PlayerMovement>();
         _rigidbody = GetComponent<Rigidbody>();
+        _defaultFov = _cinemachineCam.Lens.FieldOfView;
     }
 
     private void FixedUpdate()
@@ -48,20 +60,32 @@ public class PlayerAttack : MonoBehaviour
         _attacking = true;
         _playerMovement.enabled = false;
         _rigidbody.isKinematic = true;
-
-        var rot = Quaternion.LookRotation(_cameraController.transform.forward);
-        
-        transform.DOMove(target.position,_lungeDuration).SetEase(Ease.InOutBack);
-        transform.DORotateQuaternion(rot, _lungeDuration).SetEase(Ease.InOutBack);
         _cameraController.enabled = false;
         
+        var targetPos = Vector3.Lerp(transform.position, target.position, _targetPositionInterpolant);
+        var rot = Quaternion.LookRotation(_cameraController.transform.forward);
+        
+        transform.DOMove(targetPos,_lungeDuration).SetEase(Ease.OutBack);
+        transform.DORotateQuaternion(rot, _lungeDuration).SetEase(Ease.OutBack);
+        
+        DOTween.To(()=> _cinemachineCam.Lens.FieldOfView,x => _cinemachineCam.Lens.FieldOfView = x,
+            _zoomInFov, _lungeDuration).SetEase(Ease.OutBack);
+        
+        _animator.CrossFade(_scratchClip, 0);
+        target.GetComponent<NPC>().BeginScratch(transform);
         yield return new WaitForSeconds(_lungeDuration);
         
+        
         yield return new WaitForSeconds(_attackDuration);
+        target.GetComponent<NPC>().TakeDamage(_damage);
+        _animator.CrossFade(_jumpClip, 0);
 
         _cameraController.enabled = true;
         _playerMovement.enabled = true;
         _rigidbody.isKinematic = false;
+        
+        DOTween.To(()=> _cinemachineCam.Lens.FieldOfView,x => _cinemachineCam.Lens.FieldOfView = x,
+            _defaultFov, _zoomOutDuration);
         
         _rigidbody.AddForce(Vector3.up * _upForce,ForceMode.Impulse);
         _attacking = false;
