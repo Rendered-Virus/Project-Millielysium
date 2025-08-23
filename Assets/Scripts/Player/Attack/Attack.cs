@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float _attackRadius;
     [SerializeField] private float _maxHeightDifference;
     [SerializeField] private LayerMask _enemyLayer;
+    [SerializeField] private float _minHeightDifference;
     
     [SerializeField] private float _upForce;
     [SerializeField] private float _lungeDuration;
@@ -24,6 +25,7 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] private float _zoomInFov;
     [SerializeField] private float _zoomOutDuration;
+    [SerializeField] private GameObject _slashEffects;
     [SerializeField] private int _damage;
     
     private PlayerMovement _playerMovement;
@@ -46,9 +48,11 @@ public class PlayerAttack : MonoBehaviour
             _attackRadius,_enemyLayer);
         
         if (targets.Length == 0) return;
-        
         var target = targets[0];
-
+        
+        if(transform.position.y - target.transform.position.y < _minHeightDifference)
+            return;
+        
         if (_rigidbody.linearVelocity.y < -0.5f && target)
         {
             StartCoroutine(AttackCoroutine(target.transform));
@@ -75,8 +79,12 @@ public class PlayerAttack : MonoBehaviour
         target.GetComponent<NPC>().BeginScratch(transform);
         yield return new WaitForSeconds(_lungeDuration);
         
+        _slashEffects.SetActive(true);
         
         yield return new WaitForSeconds(_attackDuration);
+        
+        _slashEffects.SetActive(false);
+        
         target.GetComponent<NPC>().TakeDamage(_damage);
         _animator.CrossFade(_jumpClip, 0);
 

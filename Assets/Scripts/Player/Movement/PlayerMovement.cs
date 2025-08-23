@@ -68,21 +68,16 @@ public class PlayerMovement : MonoBehaviour
    
    public bool _isFalling {private set; get;}
    private bool _wasFalling;
-   private bool _begun;
-   private void Start()
-   {
-  
-      UpdateStats();
-      _rigidbody = GetComponent<Rigidbody>();
-   }
-
-   public void Begin()
+   private void OnEnable()
    {
       Cursor.lockState = CursorLockMode.Locked;
+      UpdateStats();
+      _rigidbody = GetComponent<Rigidbody>();
+      _rigidbody.isKinematic = false;
    }
+
    private void Update()
    {
-      if (!_begun) return;
       
       if (_timeToJump <= 0)
          JumpLoop();
@@ -104,13 +99,13 @@ public class PlayerMovement : MonoBehaviour
    }
    private void FixedUpdate()
    {
-      if (!_begun) return;
        Move();
       CheckIfGrounded();
       ExtraGravity();
    }
    private void Rotation(Vector3 forward)
    {
+      forward.y = 0;
       var rot = Quaternion.LookRotation(forward);
       transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * _aimSpeed);
    }
