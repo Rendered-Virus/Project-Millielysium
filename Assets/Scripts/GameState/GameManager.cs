@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>
 
   [SerializeField] private Image _black;
   [SerializeField] private float _transitionDuration;
-  
+  [SerializeField] private CanvasGroup _menu;
 
   private void Start()
   {
@@ -25,10 +25,9 @@ public class GameManager : Singleton<GameManager>
     OnGameBegin?.Invoke();
   }
 
-  private void Update()
+  public void BeginIntro()
   {
-    if(Input.GetKeyDown(KeyCode.R))
-      OnIntroBegin?.Invoke();
+    _menu.DOFade(0, _transitionDuration).OnComplete(() => OnIntroBegin?.Invoke());
   }
 
   public void NextScene()

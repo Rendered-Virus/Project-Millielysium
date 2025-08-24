@@ -39,7 +39,8 @@ public class PlayerMovement : MonoBehaviour
    [SerializeField] private float _jumpCooldown;
    
    [TabGroup("Animation")]
-   [SerializeField] private Animator _animator;
+   [SerializeField]
+   public Animator _animator;
    [TabGroup("Animation")]
    [SerializeField] private float _animationTransitionDuration;
    [TabGroup("Animation")]
@@ -54,7 +55,8 @@ public class PlayerMovement : MonoBehaviour
    [SerializeField] private string _jumpClip;
    [TabGroup("Animation")]
    [SerializeField] private string _fallClip;
-   
+   [TabGroup("Animation")]
+   [SerializeField] private GameObject _stick;
    [TabGroup("VFX")]
    [SerializeField] private GameObject _jumpEffectPrefab;
    
@@ -115,6 +117,13 @@ public class PlayerMovement : MonoBehaviour
       _wasRunning = _isRunning;
       _wasGrounded = _grounded;
       _wasFalling = _isFalling;
+      
+      if(!_grounded || _isRunning) _stick.SetActive(false);
+   }
+
+   private void OnDisable()
+   {
+      _stick.SetActive(false);
    }
 
    private void Move()
@@ -132,11 +141,14 @@ public class PlayerMovement : MonoBehaviour
          Rotation(forwardDir);
 
       if (!_grounded) return;
-      
+
       if (_isRunning && !_wasRunning)
          _animator.CrossFade(_runClip,_animationTransitionDuration);
-      else if(!_isRunning && _wasRunning)
+      else if (!_isRunning && _wasRunning)
+      {
+         _stick.SetActive(true);
          _animator.CrossFade(_idleClip,_animationTransitionDuration);
+      }
       
    }
 
@@ -184,7 +196,10 @@ public class PlayerMovement : MonoBehaviour
          if (_isRunning)
             _animator.CrossFade(_runClip,_animationTransitionDuration);
          else
+         {
+            _stick.SetActive(true);            
             _animator.CrossFade(_idleClip,_animationTransitionDuration);
+         }
       }
    }
 

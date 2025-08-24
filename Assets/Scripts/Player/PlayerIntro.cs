@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class PlayerIntro : MonoBehaviour
 {
-    [SerializeField] private string[] _startClips;
-    [SerializeField] private Animator _animator;
+    [SerializeField] public Animator _animator;
     [SerializeField] private SkinnedMeshRenderer _meshRenderer;
     [SerializeField] private Material _awakeMaterial;
     
 
     private void Start()
     {
-        _animator.CrossFade(_startClips[0],0);
         DOTween.defaultUpdateType = UpdateType.Fixed;
         
         GameManager.Instance.OnIntroBegin.AddListener(Jump);
@@ -21,6 +19,8 @@ public class PlayerIntro : MonoBehaviour
     private void Jump()
     {
         _meshRenderer.material = _awakeMaterial;
+        _animator.CrossFade("Launch", 0);
     }
+                                  
     
 }

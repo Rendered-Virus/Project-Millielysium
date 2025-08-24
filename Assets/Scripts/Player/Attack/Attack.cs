@@ -19,7 +19,7 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] private CinemachineInputAxisController _cameraController;
     [SerializeField] private CinemachineCamera _cinemachineCam;
-    [SerializeField] private Animator _animator;
+    [SerializeField] public Animator _animator;
     [SerializeField] private string _scratchClip;
     [SerializeField] private string _jumpClip;
 
