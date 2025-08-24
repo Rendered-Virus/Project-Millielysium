@@ -76,7 +76,7 @@ public class PlayerAttack : MonoBehaviour
             _zoomInFov, _lungeDuration).SetEase(Ease.OutBack);
         
         _animator.CrossFade(_scratchClip, 0);
-        target.GetComponent<NPC>().BeginScratch(transform);
+        target.GetComponent<IScratchable>().BeginScratch(transform);
         yield return new WaitForSeconds(_lungeDuration);
         
         _slashEffects.SetActive(true);
@@ -85,7 +85,7 @@ public class PlayerAttack : MonoBehaviour
         
         _slashEffects.SetActive(false);
         
-        target.GetComponent<NPC>().TakeDamage(_damage);
+        target.GetComponent<IScratchable>().TakeDamage(_damage);
         _animator.CrossFade(_jumpClip, 0);
 
         _cameraController.enabled = true;
