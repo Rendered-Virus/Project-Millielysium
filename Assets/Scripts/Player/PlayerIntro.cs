@@ -1,24 +1,26 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerIntro : MonoBehaviour
 {
     [SerializeField] private string[] _startClips;
     [SerializeField] private Animator _animator;
+    [SerializeField] private SkinnedMeshRenderer _meshRenderer;
+    [SerializeField] private Material _awakeMaterial;
     
-    private PlayerMovement _playerMovement;
-    private PlayerAttack _playerAttack;
-    
+
     private void Start()
     {
-        _playerMovement = GetComponent<PlayerMovement>();
-        _playerAttack = GetComponent<PlayerAttack>();
+        _animator.CrossFade(_startClips[0],0);
+        DOTween.defaultUpdateType = UpdateType.Fixed;
         
         GameManager.Instance.OnIntroBegin.AddListener(Jump);
     }
     
     private void Jump()
     {
-        GameManager.Instance.OnGameBegin?.Invoke();
+        _meshRenderer.material = _awakeMaterial;
     }
+    
 }

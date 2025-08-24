@@ -14,18 +14,18 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    removeConstantScaleCurves: 0
-    motionNodeName: 
+    removeConstantScaleCurves: 1
+    motionNodeName: metarig
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
-    animationRotationError: 0.5
-    animationPositionError: 0.5
-    animationScaleError: 0.5
+    animationCompression: 0
+    animationRotationError: 1
+    animationPositionError: 1
+    animationScaleError: 1
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
@@ -205,9 +205,67 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: metarig|Relax_1
-      takeName: metarig|Relax_1
-      internalID: 4606169304770584008
+      name: metarig|Relax_2
+      takeName: metarig|Relax_2
+      internalID: 4063472022516581616
+      firstFrame: 0
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: metarig|Ride
+      takeName: metarig|Ride
+      internalID: -3022881069674475576
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: metarig|Relax_3
+      takeName: metarig|Relax_3
+      internalID: -5276592985323258971
       firstFrame: 0
       lastFrame: 59
       wrapMode: 0
@@ -238,7 +296,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 0.8
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importPhysicalCameras: 1
@@ -252,15 +310,15 @@ ModelImporter:
     generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
-    weldVertices: 1
+    weldVertices: 0
     bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
-    meshOptimizationFlags: -1
-    indexFormat: 0
+    meshOptimizationFlags: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -272,7 +330,7 @@ ModelImporter:
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0

@@ -3,11 +3,17 @@ using System.Collections;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class Uno : MonoBehaviour,IScratchable
 {
     [SerializeField] private Transform _player;
+    [SerializeField] private Slider _healthBar;
+    [SerializeField] private float _maxHealth;
+    [SerializeField] private PlayableDirector _endScene;
+    private float _currentHealth;
     
     [SerializeField][TabGroup("Shoot")] private GameObject _bulletPrefab;
     [SerializeField][TabGroup("Shoot")]  private GameObject _buildUp;
@@ -22,17 +28,23 @@ public class Uno : MonoBehaviour,IScratchable
     [SerializeField][TabGroup("Jump")] private float _jumpDuration;
     [SerializeField][TabGroup("Jump")][MinMaxSlider(0,10,true)] private Vector2 _upDuration;
     [SerializeField][TabGroup("Jump")] private float _shiftRange;
+    [SerializeField] private float _healthBarDuration;
 
     private Animator _animator;
     private Collider _collider;
     
     private float _defaultYScale;
     private Vector3 _target;
+
     private void Start()
     {
         _collider = GetComponent<Collider>();
         _animator = GetComponent<Animator>();
         _defaultYScale = transform.localScale.y;
+        
+        _healthBar.maxValue = _maxHealth;
+        _healthBar.value = _maxHealth;
+        _currentHealth = _maxHealth;
     }
 
     public void Shoot()
@@ -104,7 +116,19 @@ public class Uno : MonoBehaviour,IScratchable
 
     public void TakeDamage(int damage)
     {
-        _animator.CrossFade("Idle", 0);
+        _currentHealth -= damage;
+
+        DOTween.To(() => _healthBar.value, x => _healthBar.value = x, _currentHealth, _healthBarDuration);
+
+        if (_currentHealth <= 0)
+        {
+            _endScene.Play();
+            Destroy(gameObject);
+        }
+        else
+        {
+            _animator.CrossFade("Jump", 0);
+        }
     }
 
     public void BeginScratch(Transform scratcher)

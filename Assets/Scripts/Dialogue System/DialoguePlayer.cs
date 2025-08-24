@@ -9,5 +9,6 @@ public class DialoguePlayer : MonoBehaviour
     public void Play()
     {
         DialogueManager.Instance.PlayDialogue(_sequences[_currentSequence],_right);
+        _currentSequence++;
     }
 }

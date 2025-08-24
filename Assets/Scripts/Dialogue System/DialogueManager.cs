@@ -54,9 +54,9 @@ public class DialogueManager : Singleton<DialogueManager>
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         }
         
-        sequence.OnEnd?.Invoke();
         _playing = false;
         _DialogueGroup.alpha = 0;
+        sequence.OnEnd?.Invoke();
     }
 }
 
