@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Destroy(gameObject);
-            
+            GameManager.Instance.Respawn();
         }
     }
 }

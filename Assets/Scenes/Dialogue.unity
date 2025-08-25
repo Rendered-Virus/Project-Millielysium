@@ -685,6 +685,130 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &1200243487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1200243489}
+  - component: {fileID: 1200243488}
+  m_Layer: 0
+  m_Name: Uno
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1200243488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200243487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7ce7cd9530ab4d408dad9ce5253a38d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sequences:
+  - Name: ???
+    Icon: {fileID: 21300000, guid: 493ceffa7d48496478a73acac1a01a62, type: 3}
+    OnEnd:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2026070033}
+          m_TargetAssemblyTypeName: DialoguePlayer, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    Lines:
+    - You came..?!
+  - Name: Uno
+    Icon: {fileID: 21300000, guid: c8563f76815237e4a9993431893ec20e, type: 3}
+    OnEnd:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2026070033}
+          m_TargetAssemblyTypeName: DialoguePlayer, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    Lines:
+    - UNOOOOOO!!!
+  - Name: Uno
+    Icon: {fileID: 21300000, guid: c8563f76815237e4a9993431893ec20e, type: 3}
+    OnEnd:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2026070033}
+          m_TargetAssemblyTypeName: DialoguePlayer, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    Lines:
+    - It took a lot..
+    - Perseverance, Luck, Optimism & Tenacity
+    - Im so happy your here!!
+  - Name: Uno
+    Icon: {fileID: 21300000, guid: c8563f76815237e4a9993431893ec20e, type: 3}
+    OnEnd:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1858659152}
+          m_TargetAssemblyTypeName: GameManager, GameState
+          m_MethodName: NextScene
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    Lines:
+    - Im gonna kill you
+  _right: 1
+--- !u!4 &1200243489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200243487}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1215695337
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,6 +818,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1215695338}
+  - component: {fileID: 1215695339}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -718,6 +843,103 @@ Transform:
   - {fileID: 1044274947}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1215695339
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215695337}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: fd74a9b793f1a024fa61f31c7a31ff38, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!224 &1236771404 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1476914892934565127, guid: 3b6032bbe992063489d9672ee12e2bfa, type: 3}
@@ -1063,6 +1285,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c41c11de13bf4274a8ca67fd2dd5b529, type: 3}
+--- !u!114 &1858659152 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9012676117713338577, guid: ff400258b85bc9940b027e5d923e16de, type: 3}
+  m_PrefabInstance: {fileID: 3266993369935589539}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 408315458ca3dfc4ca53bc049fb9473f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1877219134 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8371578387491740960, guid: 3b6032bbe992063489d9672ee12e2bfa, type: 3}
@@ -1123,10 +1356,61 @@ MonoBehaviour:
     Icon: {fileID: 21300000, guid: 95c303bd734396a4598fefbb69e347a7, type: 3}
     OnEnd:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1200243488}
+          m_TargetAssemblyTypeName: DialoguePlayer, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     Lines:
-    - That presence..
-    - "There's noo doubt.. \nIt's him."
+    - I knew I wasnt trippin
+    - 'It really is you.. '
+    - ...
+  - Name: Millie
+    Icon: {fileID: 21300000, guid: 95c303bd734396a4598fefbb69e347a7, type: 3}
+    OnEnd:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1200243488}
+          m_TargetAssemblyTypeName: DialoguePlayer, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    Lines:
+    - But.. how?!?
+  - Name: Millie
+    Icon: {fileID: 21300000, guid: 95c303bd734396a4598fefbb69e347a7, type: 3}
+    OnEnd:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1200243488}
+          m_TargetAssemblyTypeName: DialoguePlayer, Assembly-CSharp
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    Lines:
+    - '*You''re'
   _right: 0
 --- !u!1 &2086596740
 GameObject:
@@ -1395,7 +1679,7 @@ PrefabInstance:
     - target: {fileID: 9012676117713338577, guid: ff400258b85bc9940b027e5d923e16de, type: 3}
       propertyPath: OnStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2026070033}
+      objectReference: {fileID: 1200243488}
     - target: {fileID: 9012676117713338577, guid: ff400258b85bc9940b027e5d923e16de, type: 3}
       propertyPath: OnStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1427,4 +1711,5 @@ SceneRoots:
   - {fileID: 454566433}
   - {fileID: 1771734330}
   - {fileID: 2026070032}
+  - {fileID: 1200243489}
   - {fileID: 1215695338}

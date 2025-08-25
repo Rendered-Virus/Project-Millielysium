@@ -32,6 +32,12 @@ public class DialogueManager : Singleton<DialogueManager>
         _rightNameText.transform.parent.gameObject.SetActive(right);
         _leftNameText.transform.parent.gameObject.SetActive(!right);
 
+        var nameText = right? _rightNameText : _leftNameText;
+        nameText.text = sequence.Name;
+        
+        var icon =  right? _rightIcon : _leftIcon;
+        icon.sprite = sequence.Icon;
+        
         _playing = true;
         StartCoroutine(DialogueCoroutine(sequence));
     }

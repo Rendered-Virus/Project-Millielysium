@@ -36,6 +36,7 @@ public class NPC : MonoBehaviour, IScratchable
     {
         NPCManager.Instance.BeginPanic();
         NPCManager.Instance.OnPanicStart.RemoveListener(Panic);
+        NPCManager.Instance.Killed();
         
         Instantiate(_bodyParts, transform.position, transform.rotation);
         

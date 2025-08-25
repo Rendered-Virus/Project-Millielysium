@@ -19,7 +19,6 @@ public class Uno : MonoBehaviour,IScratchable
     [SerializeField][TabGroup("Shoot")]  private GameObject _buildUp;
     [SerializeField][TabGroup("Shoot")] private float _buildupTime;
     [SerializeField][TabGroup("Shoot")] private Transform _shootPoint;
-    [SerializeField][TabGroup("Shoot")] private int _bulletNumber;
     [SerializeField][TabGroup("Shoot")] private float _bulletAngle;
     [SerializeField][TabGroup("Shoot")] private float _bulletSpeed;
   
@@ -29,12 +28,14 @@ public class Uno : MonoBehaviour,IScratchable
     [SerializeField][TabGroup("Jump")][MinMaxSlider(0,10,true)] private Vector2 _upDuration;
     [SerializeField][TabGroup("Jump")] private float _shiftRange;
     [SerializeField] private float _healthBarDuration;
-
+    
+    [SerializeField] [TabGroup("Shoot")] private int _minBullets, _maxBullets;
     private Animator _animator;
     private Collider _collider;
     
     private float _defaultYScale;
     private Vector3 _target;
+    
 
     private void Start()
     {
@@ -56,11 +57,19 @@ public class Uno : MonoBehaviour,IScratchable
 
     private void ShootBullets()
     {
+        var accuracy = 1 - _currentHealth / _maxHealth;
+        var n = (int)Mathf.Lerp(_minBullets, _maxBullets, accuracy);
+        
         var dir = _target - transform.position;
         dir.y = 0;
-        transform.forward = dir;
         
-        var startAngle = -_bulletAngle / 2 * (_bulletNumber - 1);
+        var actualDir = _player.position - transform.position;
+        actualDir.y = 0;
+        
+        dir = Vector3.Lerp(dir, actualDir, accuracy);
+        transform.right = -dir;
+        
+        var startAngle = -_bulletAngle / 2 * (n - 1);
         
         for (float i =startAngle; i <= -startAngle; i += _bulletAngle)
         {
@@ -122,7 +131,7 @@ public class Uno : MonoBehaviour,IScratchable
 
         if (_currentHealth <= 0)
         {
-            _endScene.Play();
+            GameManager.Instance.NextScene();
             Destroy(gameObject);
         }
         else
