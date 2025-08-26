@@ -18,7 +18,6 @@ public class GameManager : Singleton<GameManager>
 
   private void Start()
   {
-    Application.targetFrameRate = 60;
     _black.DOFade(0,_transitionDuration).SetEase(Ease.InCubic).OnComplete(() => OnStart?.Invoke());
   }
 
